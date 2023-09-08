@@ -18,14 +18,6 @@ const studentPng = require("@assets/images/screen/register/student.png");
 const mentorPng = require("@assets/images/screen/register/mentor.png");
 
 export default function StepTree() {
-  return (
-    <>
-      <Layout />
-    </>
-  );
-}
-
-function Layout() {
   const router = useRouter();
   const handleButtonPress = () => {
     router.push("/register/step-four");

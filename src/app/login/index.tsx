@@ -15,14 +15,6 @@ const bannerPng = require("@assets/images/screen/login/banner.png");
 const logoPng = require("@assets/images/shared/white-logo.png");
 
 export default function Login() {
-  return (
-    <>
-      <Layout />
-    </>
-  );
-}
-
-function Layout() {
   const router = useRouter();
   const handleButtonPress = () => {
     router.push("/home");

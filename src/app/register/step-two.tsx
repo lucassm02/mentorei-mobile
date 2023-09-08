@@ -30,14 +30,6 @@ const formSchema = yup.object({
 });
 
 export default function StepTwo() {
-  return (
-    <>
-      <Layout />
-    </>
-  );
-}
-
-function Layout() {
   const router = useRouter();
 
   const { control, handleSubmit, formState } = useForm<FormDataProps>({

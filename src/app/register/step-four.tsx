@@ -5,14 +5,6 @@ import { Container, RegisterText, StyledLink, Text } from "./styles";
 import { useRouter } from "expo-router";
 
 export default function StepFour() {
-  return (
-    <>
-      <Layout />
-    </>
-  );
-}
-
-function Layout() {
   const router = useRouter();
 
   const handleButtonPress = () => {
