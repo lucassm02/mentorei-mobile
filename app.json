@@ -28,6 +28,10 @@
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
     },
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
     "plugins": [
       "expo-router"
     ]
