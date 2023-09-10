@@ -14,8 +14,8 @@ import {
 } from "./styles";
 import { useRouter } from "expo-router";
 
-const studentPng = require("@assets/images/screen/register/student.png");
-const mentorPng = require("@assets/images/screen/register/mentor.png");
+import studentPng from "@assets/images/screen/register/student.png";
+import mentorPng from "@assets/images/screen/register/mentor.png";
 
 export default function StepTree() {
   const router = useRouter();
