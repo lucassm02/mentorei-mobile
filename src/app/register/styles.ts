@@ -1,8 +1,8 @@
-import { Image as DefaultImage } from "react-native";
-import styled from "styled-components/native";
-import { space, position } from "styled-system";
 import { getSize } from "@/utils";
 import { Link } from "expo-router";
+import { Image as DefaultImage } from "react-native";
+import styled from "styled-components/native";
+import { layout, position, space } from "styled-system";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -59,8 +59,9 @@ export const ButtonGradient = styled(LinearGradient).attrs({
 `;
 
 export const ButtonContainer = styled.View`
-  align-items: flex-end;
   ${space}
+  ${position}
+  ${layout}
 `;
 
 export const Button = styled.Button`
