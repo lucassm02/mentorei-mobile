@@ -13,7 +13,7 @@ export function Button({
 }: Props & TouchableOpacityProps & SpaceProps) {
   return (
     <StyledButton disabled={disabled} {...props}>
-      <Container {...props}>
+      <Container>
         <Gradient disabled={disabled}>
           <Text>{value}</Text>
         </Gradient>

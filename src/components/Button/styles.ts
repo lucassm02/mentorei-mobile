@@ -1,6 +1,6 @@
+import { getSize } from "@/utils";
 import styled from "styled-components/native";
 import { space } from "styled-system";
-import { getSize } from "@/utils";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -16,7 +16,6 @@ const ButtonGradients = {
 export const Container = styled.View`
   width: ${getSize(315)};
   align-self: center;
-  ${space}
 `;
 
 export const Gradient = styled(LinearGradient).attrs(
@@ -33,7 +32,9 @@ export const Gradient = styled(LinearGradient).attrs(
   border-radius: ${getSize(5)};
 `;
 
-export const Button = styled.TouchableOpacity``;
+export const Button = styled.TouchableOpacity`
+  ${space}
+`;
 
 export const Text = styled.Text`
   color: #fff;
