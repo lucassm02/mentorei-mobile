@@ -11,8 +11,8 @@ import {
   StyledLink,
 } from "./styles";
 
-const bannerPng = require("@assets/images/screen/login/banner.png");
-const logoPng = require("@assets/images/shared/white-logo.png");
+import bannerPng from "@assets/images/screen/login/banner.png";
+import logoPng from "@assets/images/shared/white-logo.png";
 
 export default function Login() {
   const router = useRouter();

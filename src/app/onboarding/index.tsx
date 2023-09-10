@@ -3,8 +3,8 @@ import { Button } from "@/components";
 import { getSize } from "@/utils";
 import { Container, Image, Text } from "./styles";
 
-const logoPng = require("@assets/images/shared/gray-logo.png");
-const bannerPng = require("@assets/images/screen/onboarding/banner.png");
+import logoPng from "@assets/images/shared/gray-logo.png";
+import bannerPng from "@assets/images/screen/onboarding/banner.png";
 
 export default function Onboarding() {
   const router = useRouter();
