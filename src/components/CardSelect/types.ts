@@ -5,7 +5,12 @@ export interface CardProps {
   onPress?: (id: string | number) => void;
 }
 
+type Callback =
+  | ((ids: string[]) => void)
+  | ((ids: number[]) => void)
+  | ((ids: Array<number | string>) => void);
+
 export interface FormProps {
-  onSelected?: (id: string | number) => void;
+  onSelected?: Callback;
   data: Array<{ text: string; id: number | string }>;
 }
