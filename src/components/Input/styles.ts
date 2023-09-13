@@ -1,9 +1,9 @@
 import styled from "styled-components/native";
-import { space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 import { getSize } from "@/utils";
 import MaskInput from "react-native-mask-input";
 
-export const Container = styled.View`
+export const Container = styled.View<SpaceProps>`
   width: ${getSize(315)};
   align-self: center;
   ${space}
@@ -31,7 +31,7 @@ export const Label = styled.Text`
   ${space};
 `;
 
-export const RequiredLabel = styled.Text`
+export const RequiredLabel = styled.Text<SpaceProps>`
   color: rgba(193, 82, 82, 0.91);
   font-size: ${getSize(10)};
   font-family: HammersmithOne;

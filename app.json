@@ -12,9 +12,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -29,11 +27,9 @@
       "favicon": "./assets/images/favicon.png"
     },
     "experiments": {
-      "typedRoutes": true,
+      "typedRoutes": false,
       "tsconfigPaths": true
     },
-    "plugins": [
-      "expo-router"
-    ]
+    "plugins": ["expo-router"]
   }
 }

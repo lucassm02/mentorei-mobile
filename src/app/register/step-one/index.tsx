@@ -11,9 +11,14 @@ import { ScrollView } from "react-native";
 import { ButtonContainer, Container, Text } from "../styles";
 import { type FormDataProps } from "./types";
 import { formSchema, makeHandleWithApiErrors } from "./utils";
+import { useContext } from "react";
+import { UserContext } from "@/storages";
 
 export default function StepOne() {
   const router = useRouter();
+
+  const { setUserData } = useContext(UserContext);
+
   const {
     control,
     handleSubmit,
@@ -48,6 +53,8 @@ export default function StepOne() {
 
     await setItem(Collection.USER, { id, token });
 
+    setUserData({ id, name: "", token });
+
     router.replace("/register/step-two");
   });
 
@@ -55,9 +62,9 @@ export default function StepOne() {
     <>
       <Loading active={loading} />
       <Container>
-        <Header backButton title="Cadastro" />
+        <Header backButton />
         <Text mt={30} ml={30}>
-          Preencha suas informações pessoais nos campos abaixo
+          Para criar sua conta, preencha as informações abaixo
         </Text>
         <ScrollView>
           <Controller
@@ -149,7 +156,7 @@ export default function StepOne() {
           />
         </ScrollView>
         <ButtonContainer position="relative" bottom={4}>
-          <Button mt={50} value="Continuar" onPress={handleButtonPress} />
+          <Button mt={50} value="Criar conta" onPress={handleButtonPress} />
         </ButtonContainer>
       </Container>
     </>

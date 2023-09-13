@@ -1,10 +1,12 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { FlatList, Image } from "react-native";
 import styled from "styled-components/native";
-import { space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 import { getSize } from "@/utils";
+import { type CardProps } from "./types";
 
-export const FormContainer = styled.View`
+export const FormContainer = styled.View<SpaceProps>`
+  flex: 1;
   ${space}
 `;
 
@@ -26,10 +28,11 @@ export const Text = styled.Text`
   font-size: ${getSize(20)};
 `;
 
-export const List = styled(FlatList).attrs({
+export const List = styled(FlatList<CardProps>).attrs({
   numColumns: 2,
 })`
   width: 95%;
+  flex: 1;
 `;
 
 export const SelectedIcon = styled(Image)`
@@ -39,4 +42,14 @@ export const SelectedIcon = styled(Image)`
   top: ${getSize(7)};
   right: ${getSize(7)};
   position: absolute;
+`;
+
+export const Divisor = styled.View`
+  width: 100%;
+  height: 20px;
+`;
+
+export const Footer = styled.View`
+  width: 100%;
+  height: 20px;
 `;

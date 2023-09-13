@@ -1,28 +1,26 @@
-import { LinearGradient } from "expo-linear-gradient";
-import styled from "styled-components/native";
-import { space } from "styled-system";
 import { getSize } from "@/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
+import styled from "styled-components/native";
+import { space, flex, type SpaceProps, type FlexProps } from "styled-system";
 
-export const Gradient = styled(LinearGradient).attrs({
-  colors: ["#427CFA", "#4DB9FD"],
-})`
+export const Container = styled(SafeAreaView)<SpaceProps>`
   width: 100%;
+  height: 100px;
+  background-color: #fdfffe;
   justify-content: center;
   align-items: center;
+  padding-bottom: ${getSize(10)};
   ${space};
 `;
 
-export const Container = styled(SafeAreaView)`
+export const ContentContainer = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   width: 90%;
-  padding-bottom: ${getSize(10)};
+  align-items: center;
 `;
 
-export const ButtonContainer = styled.View`
-  align-self: baseline;
-`;
+export const ButtonContainer = styled.View<SpaceProps>``;
 
 export const Title = styled.Text`
   color: #fff;
@@ -30,4 +28,9 @@ export const Title = styled.Text`
   font-family: HammersmithOne;
   margin: 0 auto;
   ${space};
+`;
+
+export const Image = styled.Image<SpaceProps & FlexProps>`
+  ${space}
+  ${flex}
 `;

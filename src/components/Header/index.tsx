@@ -1,20 +1,20 @@
 import { useNavigation } from "expo-router";
-import { Image, TouchableOpacity } from "react-native";
-import { ButtonContainer, Container, Gradient, Title } from "./styles";
+import { TouchableOpacity } from "react-native";
+import { ButtonContainer, Container, ContentContainer, Image } from "./styles";
 
-const iconPng = require("@assets/images/shared/back-icon.png");
+const grayLogoPng = require("@assets/images/shared/gray-logo.png");
+const arrowBackPng = require("@assets/images/component/header/arrow-back.png");
 
 interface Props {
-  title: string;
   backButton?: boolean;
 }
 
-export function Header({ title, backButton, ...props }: Props) {
+export function Header({ backButton, ...props }: Props) {
   const navigation = useNavigation();
 
   return (
-    <Gradient>
-      <Container {...props}>
+    <Container>
+      <ContentContainer {...props}>
         {backButton && (
           <ButtonContainer>
             <TouchableOpacity
@@ -22,12 +22,12 @@ export function Header({ title, backButton, ...props }: Props) {
                 navigation.goBack();
               }}
             >
-              <Image source={iconPng} />
+              <Image source={arrowBackPng} />
             </TouchableOpacity>
           </ButtonContainer>
         )}
-        <Title>{title}</Title>
-      </Container>
-    </Gradient>
+        <Image source={grayLogoPng} m="0 auto" />
+      </ContentContainer>
+    </Container>
   );
 }

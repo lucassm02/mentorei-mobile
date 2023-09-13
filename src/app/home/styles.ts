@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 import { getSize } from "@/utils";
 
 export const Container = styled.SafeAreaView`
@@ -7,7 +7,7 @@ export const Container = styled.SafeAreaView`
   background-color: #fdfffe;
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text<SpaceProps>`
   color: #746e6e;
   font-size: ${getSize(28)};
   font-family: HammersmithOne;

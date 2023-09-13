@@ -1,22 +1,28 @@
 import { type TouchableOpacityProps } from "react-native";
 import { type SpaceProps } from "styled-system";
-import { Container, Gradient, Button as StyledButton, Text } from "./styles";
+import {
+  Container,
+  ButtonContainer,
+  Button as StyledButton,
+  Text,
+} from "./styles";
 
-interface Props {
-  value: string;
-}
+import { type GenericProps } from "./types";
 
 export function Button({
   value,
   disabled,
+  type,
   ...props
-}: Props & TouchableOpacityProps & SpaceProps) {
+}: GenericProps & TouchableOpacityProps & SpaceProps & { value: string }) {
   return (
     <StyledButton disabled={disabled} {...props}>
       <Container>
-        <Gradient disabled={disabled}>
-          <Text>{value}</Text>
-        </Gradient>
+        <ButtonContainer disabled={disabled} type={type}>
+          <Text type={type} disabled={disabled}>
+            {value}
+          </Text>
+        </ButtonContainer>
       </Container>
     </StyledButton>
   );

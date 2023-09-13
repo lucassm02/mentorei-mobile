@@ -1,11 +1,11 @@
 import styled from "styled-components/native";
 import { getSize } from "@/utils";
 import { type RadioButtonProps } from "./types";
-import { space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 
 const defaultColor = "#000";
 
-export const RadioButtonFormContainer = styled.View`
+export const RadioButtonFormContainer = styled.View<SpaceProps>`
   ${space}
 `;
 

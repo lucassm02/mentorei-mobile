@@ -1,6 +1,13 @@
 import { Image as DefaultImage } from "react-native";
 import styled from "styled-components/native";
-import { space, position, layout } from "styled-system";
+import {
+  space,
+  position,
+  layout,
+  type LayoutProps,
+  type PositionProps,
+  type SpaceProps,
+} from "styled-system";
 import { getSize } from "@/utils";
 import { Link } from "expo-router";
 
@@ -11,14 +18,16 @@ export const Container = styled.SafeAreaView`
   background-color: #fdfffe;
 `;
 
-export const Image = styled(DefaultImage)`
+export const Image = styled(DefaultImage)<
+  SpaceProps & LayoutProps & PositionProps
+>`
   align-self: center;
   ${layout}
   ${space}
   ${position}
 `;
 
-export const WelcomeText = styled.Text`
+export const BannerText = styled.Text<SpaceProps & PositionProps>`
   color: #fff;
   font-size: ${getSize(20)};
   font-family: HammersmithOne;
@@ -27,6 +36,24 @@ export const WelcomeText = styled.Text`
   align-self: center;
   ${space}
   ${position}
+`;
+
+export const Title = styled.Text<SpaceProps>`
+  width: 80%;
+  color: #746e6e;
+  text-align: left;
+  font-family: HammersmithOne;
+  font-size: ${getSize(26)};
+  ${space}
+`;
+
+export const Text = styled.Text<SpaceProps>`
+  width: 80%;
+  color: #746e6e;
+  text-align: left;
+  font-family: HammersmithOne;
+  font-size: ${getSize(16)};
+  ${space}
 `;
 
 export const ButtonGradient = styled(LinearGradient).attrs({
@@ -39,7 +66,7 @@ export const ButtonGradient = styled(LinearGradient).attrs({
   border-radius: 30px;
 `;
 
-export const ButtonContainer = styled.View`
+export const ButtonContainer = styled.View<SpaceProps>`
   align-items: flex-end;
   ${space}
 `;
@@ -53,7 +80,7 @@ export const Button = styled.Button`
   text-transform: capitalize;
 `;
 
-export const OptionsContainer = styled.View`
+export const OptionsContainer = styled.View<SpaceProps>`
   width: ${getSize(310)};
   align-self: center;
   flex-direction: row;
@@ -68,7 +95,7 @@ export const ForgotPasswordText = styled.Text`
   font-family: HammersmithOne;
 `;
 
-export const RegisterText = styled.Text`
+export const RegisterText = styled.Text<SpaceProps>`
   color: #746e6e;
   font-size: ${getSize(14)};
   font-family: HammersmithOne;
@@ -76,7 +103,7 @@ export const RegisterText = styled.Text`
   ${space}
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)<SpaceProps>`
   color: #4db9fd;
   font-size: ${getSize(14)};
   font-family: HammersmithOne;

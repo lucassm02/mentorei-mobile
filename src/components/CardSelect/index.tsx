@@ -7,6 +7,8 @@ import {
   Text,
   List,
   SelectedIcon,
+  Divisor,
+  Footer,
 } from "./styles";
 import { TouchableOpacity } from "react-native";
 
@@ -34,12 +36,11 @@ function FormWithContext({ ...props }: SpaceProps & FormProps) {
   return (
     <FormContainer {...props}>
       <List
+        ListHeaderComponent={() => <Divisor />}
+        ListFooterComponent={() => <Footer />}
+        showsVerticalScrollIndicator={false}
         data={props.data}
-        renderItem={({
-          item,
-        }: {
-          item: { text: string; id: string | number };
-        }) => <Card text={item.text} id={item.id} />}
+        renderItem={({ item }) => <Card text={item.text} id={item.id} />}
       />
     </FormContainer>
   );

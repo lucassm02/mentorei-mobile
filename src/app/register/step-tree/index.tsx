@@ -1,15 +1,18 @@
 import { Button, Header, Loading } from "@/components";
 import { SelectForm } from "@/components/CardSelect";
 import { GET_ALL_SKILLS, UPDATE_USER_SKILLS } from "@/services";
-import { Collection, getItem } from "@/storages/async-storage";
+import { UserContext } from "@/storages";
+import { addSkillTypeOnListOfSkills, mergeAndSortSkills } from "@/utils";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container, RegisterText, StyledLink, Text } from "../styles";
-import { mergeAndSortSkills, addSkillTypeOnListOfSkills } from "./utils";
 
-export default function StepFour() {
+export default function StepTree() {
   const router = useRouter();
+
+  const { user } = useContext(UserContext);
+
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const [skills, setSkills] = useState<
     Array<{ id: string; text: string; type: string }>
@@ -29,26 +32,14 @@ export default function StepFour() {
     },
   );
 
-  async function getLocalUserData(): Promise<
-    { id: string; token: string } | undefined
-  > {
-    const user: { id: string; token: string } | undefined = await getItem(
-      Collection.USER,
-    );
-
-    return user ?? undefined;
-  }
-
   async function getSkills() {
-    const userData = await getLocalUserData();
-
-    if (!userData) {
-      router.replace("/register/step-one");
+    if (!user) {
+      router.replace("/onboarding");
       return;
     }
 
     const { data } = await getAllSkills({
-      context: { headers: { Authorization: `Bearer ${userData.token}` } },
+      context: { headers: { Authorization: `Bearer ${user.token}` } },
     });
 
     const softSkills = addSkillTypeOnListOfSkills(
@@ -73,9 +64,7 @@ export default function StepFour() {
   }
 
   async function updateUser() {
-    const userData = await getLocalUserData();
-
-    if (!userData) {
+    if (!user) {
       router.replace("/register/step-one");
       return;
     }
@@ -93,14 +82,14 @@ export default function StepFour() {
       .map((item) => item.id);
 
     await updateUserSkills({
-      variables: { id: userData.id, softSkills, hardSkills },
-      context: { headers: { Authorization: `Bearer ${userData.token}` } },
+      variables: { id: user.id, softSkills, hardSkills },
+      context: { headers: { Authorization: `Bearer ${user.token}` } },
     });
   }
 
   const handleButtonPress = async () => {
     await updateUser();
-    router.replace("/home");
+    router.replace("/look-for-mentor");
   };
 
   useEffect(() => {
@@ -111,7 +100,7 @@ export default function StepFour() {
     <>
       <Loading active={getSkillsLoading || updateUserSkillsLoading} />
       <Container>
-        <Header title="Meu Perfil" backButton />
+        <Header backButton />
         <Text mt={30} ml={30}>
           Selecione suas skills
         </Text>
@@ -127,7 +116,7 @@ export default function StepFour() {
           onPress={handleButtonPress}
           disabled={selectedOption.length === 0}
         />
-        <RegisterText mt={20}>
+        <RegisterText mt={20} mb={20}>
           Para saber mais ou duvidas acesse o portal{" "}
           <StyledLink href="/register">mentorei.app</StyledLink>.
         </RegisterText>

@@ -1,8 +1,15 @@
 import { getSize } from "@/utils";
 import { Link } from "expo-router";
 import { Image as DefaultImage } from "react-native";
-import styled from "styled-components/native";
-import { layout, position, space } from "styled-system";
+import styled, { css } from "styled-components/native";
+import {
+  type PositionProps,
+  type SpaceProps,
+  layout,
+  position,
+  space,
+  type LayoutProps,
+} from "styled-system";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -11,7 +18,16 @@ export const Container = styled.SafeAreaView`
   background-color: #fdfffe;
 `;
 
-export const Text = styled.Text`
+export const Title = styled.Text<SpaceProps>`
+  color: #686868;
+  font-size: ${getSize(26)};
+  width: 80%;
+  height: auto;
+  font-family: HammersmithOne;
+  ${space}
+`;
+
+export const Text = styled.Text<SpaceProps>`
   color: #686868;
   font-size: ${getSize(20)};
   width: 80%;
@@ -20,14 +36,16 @@ export const Text = styled.Text`
   ${space}
 `;
 
-export const Image = styled(DefaultImage)`
+export const Image = styled(DefaultImage)<SpaceProps & PositionProps>`
   align-self: center;
   ${space}
   ${position}
 `;
 
-export const CardText = styled.Text`
-  color: #fff;
+export const CardText = styled.Text<
+  SpaceProps & PositionProps & { color?: string }
+>`
+  color: ${({ color }) => color ?? "#fff"};
   font-size: ${getSize(20)};
   font-family: HammersmithOne;
   flex-direction: column;
@@ -37,7 +55,7 @@ export const CardText = styled.Text`
   ${position}
 `;
 
-export const WelcomeText = styled.Text`
+export const WelcomeText = styled.Text<SpaceProps & PositionProps>`
   color: #fff;
   font-size: ${getSize(20)};
   font-family: HammersmithOne;
@@ -58,7 +76,9 @@ export const ButtonGradient = styled(LinearGradient).attrs({
   border-radius: 30px;
 `;
 
-export const ButtonContainer = styled.View`
+export const ButtonContainer = styled.View<
+  SpaceProps & PositionProps & LayoutProps
+>`
   ${space}
   ${position}
   ${layout}
@@ -73,7 +93,7 @@ export const Button = styled.Button`
   text-transform: capitalize;
 `;
 
-export const OptionsContainer = styled.View`
+export const OptionsContainer = styled.View<SpaceProps>`
   width: ${getSize(310)};
   align-self: center;
   flex-direction: row;
@@ -88,7 +108,7 @@ export const ForgotPasswordText = styled.Text`
   font-family: HammersmithOne;
 `;
 
-export const RegisterText = styled.Text`
+export const RegisterText = styled.Text<SpaceProps>`
   color: #746e6e;
   font-size: ${getSize(14)};
   font-family: HammersmithOne;
@@ -97,7 +117,7 @@ export const RegisterText = styled.Text`
   ${space}
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)<SpaceProps>`
   color: #4db9fd;
   font-size: ${getSize(14)};
   font-family: HammersmithOne;
@@ -105,7 +125,7 @@ export const StyledLink = styled(Link)`
   ${space}
 `;
 
-export const RadioButtonCardContainer = styled.View`
+export const RadioButtonCardContainer = styled.View<SpaceProps>`
   flex-direction: row;
   justify-content: center;
   padding: ${getSize(0)} ${getSize(30)};
@@ -127,6 +147,12 @@ export const RadioContainer = styled.View`
 `;
 
 export const CardGradient = styled(LinearGradient)`
+  ${({ border }: { border?: boolean }) =>
+    border &&
+    css`
+      border-width: 3px;
+      border-color: #0f9ffa;
+    `}
   width: ${getSize(150)};
   height: ${getSize(306)};
   border-radius: ${getSize(7)};
