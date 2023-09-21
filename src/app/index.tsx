@@ -1,9 +1,9 @@
 import { Collection, getItem } from "@/storages";
 import { UserContext, type User } from "@/storages/context";
-import { SplashScreen } from "expo-router";
+import { Redirect, SplashScreen } from "expo-router";
+
 import { useContext, useEffect, useState } from "react";
-import LookForMentor from "./look-for-mentor";
-import Onboarding from "./onboarding";
+import Onboarding from "./(public)/onboarding";
 
 export default function Root() {
   const { user, setUserData } = useContext(UserContext);
@@ -23,7 +23,6 @@ export default function Root() {
 
   async function getStorage() {
     const store: User | undefined = await getItem(Collection.USER);
-    // await setItem(Collection.USER, null);
 
     if (!store) {
       setUserData(null);
@@ -37,7 +36,7 @@ export default function Root() {
 
   function ComponentSwitch() {
     if (user === null) return <Onboarding />;
-    return <LookForMentor />;
+    return <Redirect href="/(private)/home" />;
   }
 
   return <ComponentSwitch />;

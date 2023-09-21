@@ -5,7 +5,7 @@ import { space, type SpaceProps } from "styled-system";
 import { type GenericProps } from "./types";
 
 export const Container = styled.View`
-  width: ${getSize(315)};
+  width: ${getSize(300)};
   align-self: center;
 `;
 

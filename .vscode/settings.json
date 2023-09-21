@@ -1,3 +1,17 @@
 {
-  "cSpell.words": ["fontsize", "hookform", "MENTEE", "mentorei", "Pressable"]
+  "cSpell.words": [
+    "fontsize",
+    "hookform",
+    "Ionicons",
+    "MENTEE",
+    "mentorei",
+    "mentorias",
+    "Nunito",
+    "Pressable"
+  ],
+  "material-icon-theme.folders.associations": {
+    "(private)": "private",
+    "(public)": "public",
+    "unit": "Stack"
+  }
 }

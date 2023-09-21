@@ -9,6 +9,13 @@ import bannerPng from "@assets/images/screen/onboarding/banner.png";
 export default function Onboarding() {
   const router = useRouter();
 
+  function goToLogin() {
+    router.replace("/login");
+  }
+  function goToRegister() {
+    router.push("/register");
+  }
+
   return (
     <Container>
       <Banner source={bannerPng} m="0 auto" mt={getSize(25)} />
@@ -16,23 +23,15 @@ export default function Onboarding() {
       <Title ml={getSize(30)} mt={getSize(15)} mr={getSize(30)}>
         Bem-vindo ao Mentorei.
       </Title>
-      <Text ml={getSize(30)} mt={getSize(10)} mr={getSize(50)}>
+      <Text ml={getSize(30)} mt={getSize(10)} mr={getSize(30)}>
         O aplicativo que veio para governar o ensino digital!
       </Text>
-      <Button
-        mt={getSize(30)}
-        value="Criar Conta"
-        onPress={() => {
-          router.push("/register");
-        }}
-      />
+      <Button mt={getSize(30)} value="Criar Conta" onPress={goToRegister} />
       <Button
         type="outline"
         mt={getSize(10)}
         value="Já tenho conta"
-        onPress={() => {
-          router.replace("/login");
-        }}
+        onPress={goToLogin}
       />
     </Container>
   );

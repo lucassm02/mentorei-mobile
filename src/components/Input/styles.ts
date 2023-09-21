@@ -4,14 +4,12 @@ import { getSize } from "@/utils";
 import MaskInput from "react-native-mask-input";
 
 export const Container = styled.View<SpaceProps>`
-  width: ${getSize(315)};
+  width: ${getSize(300)};
   align-self: center;
   ${space}
 `;
 
-export const Input = styled(MaskInput).attrs({
-  placeholderTextColor: "#CBCBCB",
-})`
+export const Input = styled(MaskInput)`
   width: 100%;
   padding: ${getSize(17)} ${getSize(20)};
   background-color: #f1f1f1;
@@ -21,7 +19,7 @@ export const Input = styled(MaskInput).attrs({
   font-size: ${getSize(16)};
 `;
 
-export const Label = styled.Text`
+export const Label = styled.Text<SpaceProps>`
   color: #9a9a9a;
   font-size: ${getSize(14)};
   font-family: HammersmithOne;

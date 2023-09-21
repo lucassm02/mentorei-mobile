@@ -46,10 +46,10 @@ export const SelectedIcon = styled(Image)`
 
 export const Divisor = styled.View`
   width: 100%;
-  height: 20px;
+  height: ${getSize(20)};
 `;
 
 export const Footer = styled.View`
   width: 100%;
-  height: 20px;
+  height: ${getSize(20)};
 `;

@@ -5,7 +5,7 @@ import { space, flex, type SpaceProps, type FlexProps } from "styled-system";
 
 export const Container = styled(SafeAreaView)<SpaceProps>`
   width: 100%;
-  height: 100px;
+  height: ${getSize(100)};
   background-color: #fdfffe;
   justify-content: center;
   align-items: center;

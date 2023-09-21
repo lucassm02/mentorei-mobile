@@ -16,7 +16,11 @@ export function SkillList({ data, ...props }: SpaceProps & Props) {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <SkillCard text={item.name} mt={getSize(10)} />
+          <SkillCard
+            mt={getSize(10)}
+            text={item.name}
+            imageUrl={item.imageUrl}
+          />
         )}
         ItemSeparatorComponent={() => <Separator />}
         ListFooterComponent={() => <Footer />}

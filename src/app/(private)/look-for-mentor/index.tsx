@@ -1,10 +1,6 @@
 import { Header, Loading, SearchInput, SkillList } from "@/components";
 import { GET_ALL_SKILLS } from "@/services";
-import {
-  addSkillTypeOnListOfSkills,
-  getSize,
-  mergeAndSortSkills,
-} from "@/utils";
+import { getSize } from "@/utils";
 import { useLazyQuery } from "@apollo/client";
 import { useContext, useEffect, useState } from "react";
 import { Container, Text, Title } from "./styles";
@@ -16,7 +12,7 @@ export default function LookForMentor() {
   const { user } = useContext(UserContext);
 
   const [skills, setSkills] = useState<
-    Array<{ id: string; name: string; type: string }>
+    Array<{ id: string; name: string; imageUrl: string; type: string }>
   >([]);
 
   const [gqlGeSkills, gqlGetSkillProps] = useLazyQuery(GET_ALL_SKILLS, {
@@ -29,7 +25,7 @@ export default function LookForMentor() {
 
   async function getSkills() {
     if (!user) {
-      route.replace("/onboarding");
+      route.replace("/(public)/onboarding");
       return;
     }
 
@@ -41,25 +37,7 @@ export default function LookForMentor() {
       },
     });
 
-    const softSkills = addSkillTypeOnListOfSkills(
-      data.listSkills.softSkills,
-      "SOFT",
-    );
-
-    const hardSkills = addSkillTypeOnListOfSkills(
-      data.listSkills.hardSkills,
-      "HARD",
-    );
-
-    const mergedSkills = mergeAndSortSkills(softSkills, hardSkills);
-
-    const renamedKeySkills = mergedSkills.map(({ id, name, type }) => ({
-      id,
-      name,
-      type,
-    }));
-
-    setSkills(renamedKeySkills);
+    setSkills(data.listSkills);
   }
 
   return (
@@ -68,7 +46,7 @@ export default function LookForMentor() {
       <Header />
       <Container>
         <Title ml={getSize(30)} mt={getSize(30)} mr={getSize(30)}>
-          Olá Lucas,
+          Olá {user?.name},
         </Title>
         <Text ml={getSize(30)} mt={getSize(10)} mr={getSize(30)}>
           Aqui você pode encontrar mentores por skills ou pode buscar pelo nome.

@@ -73,7 +73,7 @@ export const ButtonGradient = styled(LinearGradient).attrs({
   height: ${getSize(50)};
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: ${getSize(30)};
 `;
 
 export const ButtonContainer = styled.View<
@@ -150,7 +150,7 @@ export const CardGradient = styled(LinearGradient)`
   ${({ border }: { border?: boolean }) =>
     border &&
     css`
-      border-width: 3px;
+      border-width: ${getSize(3)};
       border-color: #0f9ffa;
     `}
   width: ${getSize(150)};

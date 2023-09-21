@@ -27,9 +27,7 @@ export const RatingContainer = styled.View<SpaceProps>`
   ${space}
 `;
 
-export const Rating = styled(RatingWithoutStyle)`
-  background-color: red;
-`;
+export const Rating = styled(RatingWithoutStyle)``;
 
 export const RatingText = styled.Text<SpaceProps>`
   color: #464646;

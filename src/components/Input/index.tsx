@@ -23,7 +23,7 @@ export function Input({
   return (
     <Container {...props}>
       <Label mb={getSize(10)}>{label}</Label>
-      <StyledInput {...props} />
+      <StyledInput placeholderTextColor="#CBCBCB" {...props} />
       {errorMessage && <RequiredLabel>{errorMessage}</RequiredLabel>}
     </Container>
   );

@@ -63,7 +63,7 @@ export const ButtonGradient = styled(LinearGradient).attrs({
   height: ${getSize(50)};
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: ${getSize(30)};
 `;
 
 export const ButtonContainer = styled.View<SpaceProps>`

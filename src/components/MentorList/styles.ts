@@ -22,11 +22,11 @@ export const List = styled(FlatList<CardProps>)``;
 
 export const Separator = styled.View`
   width: 95%;
-  height: 0.5px;
-  margin-top: 15px;
+  height: ${getSize(0.5)};
+  margin-top: ${getSize(15)};
   background-color: rgba(0, 0, 0, 0.1);
 `;
 
 export const Footer = styled.View`
-  padding: 10px;
+  padding: ${getSize(10)};
 `;

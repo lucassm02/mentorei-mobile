@@ -14,19 +14,19 @@ export const RadioButtonContainer = styled.Pressable`
   width: ${getSize(30)};
 `;
 
-export const Radio = styled.View`
+export const Radio = styled.View<Omit<RadioButtonProps, "id">>`
   height: ${getSize(30)};
   width: ${getSize(30)};
   border-radius: ${getSize(15)};
   border-width: ${getSize(2.5)};
-  border-color: ${(props: RadioButtonProps) => props.color ?? defaultColor};
+  border-color: ${(props) => props.color ?? defaultColor};
   justify-content: center;
   align-items: center;
 `;
 
-export const RadioButtonFill = styled.View`
+export const RadioButtonFill = styled.View<Omit<RadioButtonProps, "id">>`
   height: ${getSize(18)};
   width: ${getSize(18)};
   border-radius: ${getSize(9)};
-  background-color: ${(props: RadioButtonProps) => props.color ?? defaultColor};
+  background-color: ${(props) => props.color ?? defaultColor};
 `;

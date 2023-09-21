@@ -9,9 +9,7 @@ export const Container = styled.View<SpaceProps>`
   ${space}
 `;
 
-export const Input = styled(MaskInput).attrs({
-  placeholderTextColor: "#CBCBCB",
-})`
+export const Input = styled(MaskInput)`
   width: 100%;
   padding: ${getSize(17)} ${getSize(20)};
   background-color: #f1f1f1;

@@ -16,8 +16,8 @@ export const Banner = styled.Image.attrs({ resizeMode: "contain" })<
 `;
 
 export const Logo = styled.Image<SpaceProps & SizeProps>`
-  height: 50px;
-  width: 150px;
+  height: ${getSize(50)};
+  width: ${getSize(150)};
   ${space}
   ${size}
 `;

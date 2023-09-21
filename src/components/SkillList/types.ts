@@ -1,1 +1,1 @@
-export type CardProps = { id: string; name: string };
+export type CardProps = { id: string; name: string; imageUrl: string };

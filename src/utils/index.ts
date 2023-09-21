@@ -1,2 +1,2 @@
 export * from "./get-size";
-export * from "./skills";
+export * from "./get-avatar-image-url";

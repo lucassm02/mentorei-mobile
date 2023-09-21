@@ -2,7 +2,6 @@ import { Button, Header, Loading } from "@/components";
 import { SelectForm } from "@/components/CardSelect";
 import { GET_ALL_SKILLS, UPDATE_USER_SKILLS } from "@/services";
 import { UserContext } from "@/storages";
-import { addSkillTypeOnListOfSkills, mergeAndSortSkills } from "@/utils";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useState } from "react";
@@ -15,7 +14,7 @@ export default function StepTree() {
 
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const [skills, setSkills] = useState<
-    Array<{ id: string; text: string; type: string }>
+    Array<{ id: string; text: string; imageUrl: string; type: string }>
   >([]);
 
   const [getAllSkills, { loading: getSkillsLoading }] = useLazyQuery(
@@ -42,25 +41,7 @@ export default function StepTree() {
       context: { headers: { Authorization: `Bearer ${user.token}` } },
     });
 
-    const softSkills = addSkillTypeOnListOfSkills(
-      data.listSkills.softSkills,
-      "SOFT",
-    );
-
-    const hardSkills = addSkillTypeOnListOfSkills(
-      data.listSkills.hardSkills,
-      "HARD",
-    );
-
-    const mergedSkills = mergeAndSortSkills(softSkills, hardSkills);
-
-    const renamedKeySkills = mergedSkills.map(({ id, name, type }) => ({
-      id,
-      text: name,
-      type,
-    }));
-
-    setSkills(renamedKeySkills);
+    setSkills(data.listSkills);
   }
 
   async function updateUser() {

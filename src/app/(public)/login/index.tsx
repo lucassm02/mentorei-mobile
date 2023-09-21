@@ -59,15 +59,13 @@ export default function Login() {
       return;
     }
 
-    const { id, token }: User = data.login;
+    const { id, name, token }: User = data.login;
 
-    console.log({ id, token });
+    await setItem(Collection.USER, { id, name, token });
 
-    await setItem(Collection.USER, { id, token });
+    setUserData({ id, name, token });
 
-    setUserData({ id, name: "", token });
-
-    router.replace("/look-for-mentor");
+    router.replace("/(private)/home");
   });
 
   return (

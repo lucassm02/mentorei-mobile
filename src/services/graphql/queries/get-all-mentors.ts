@@ -1,14 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_MENTORS = gql`
-  query getMentors {
+  query {
     getAllMentors {
-      User {
+      user {
         id
         name
         email
       }
-      evaluation {
+      evaluations {
         rating
       }
     }

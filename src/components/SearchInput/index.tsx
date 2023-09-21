@@ -9,7 +9,7 @@ export { Masks } from "react-native-mask-input";
 export function SearchInput({ ...props }: MaskInputProps & SpaceProps) {
   return (
     <Container {...props}>
-      <StyledInput {...props} />
+      <StyledInput placeholderTextColor="#CBCBCB" {...props} />
     </Container>
   );
 }

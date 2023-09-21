@@ -25,7 +25,7 @@ export default function LookForMentorV2() {
 
   async function getMentors() {
     if (!user) {
-      route.replace("/onboarding");
+      route.replace("/(public)/onboarding");
       return;
     }
 
@@ -39,14 +39,14 @@ export default function LookForMentorV2() {
 
     const list = data.getAllMentors.map((item: any) => {
       const calculateRating = () => {
-        if (item.evaluation.length === 0) return 0;
+        if (item.evaluations.length === 0) return 0;
 
-        const sumOfAlEvaluations = item.evaluation.reduce(
+        const sumOfAlEvaluations = item.evaluations.reduce(
           (acc: any, curr: any) => acc + curr.rating,
           0,
         );
 
-        const average = sumOfAlEvaluations / item.evaluation.length;
+        const average = sumOfAlEvaluations / item.evaluations.length;
 
         return average;
       };
@@ -54,9 +54,9 @@ export default function LookForMentorV2() {
       const rating = calculateRating();
 
       return {
-        id: item.User.id,
-        name: item.User.name,
-        email: item.User.email,
+        id: item.user.id,
+        name: item.user.name,
+        email: item.user.email,
         rating,
       };
     });
@@ -70,7 +70,7 @@ export default function LookForMentorV2() {
       <Header backButton />
       <Container>
         <Title ml={getSize(30)} mt={getSize(30)} mr={getSize(30)}>
-          Olá Lucas,
+          Olá {user?.name},
         </Title>
         <Text ml={getSize(30)} mt={getSize(10)} mr={getSize(30)}>
           Aqui você pode encontrar mentores por skills ou pode buscar pelo nome.

@@ -17,11 +17,10 @@ export const Text = styled.Text<SpaceProps>`
 `;
 
 export const IconContainer = styled.View<SpaceProps>`
-  height: 60px;
-  width: 60px;
-  border-radius: 6px;
-  border: 2px solid #909090;
-  background: rgba(15, 159, 250, 0.5);
+  height: ${getSize(60)};
+  width: ${getSize(60)};
+  border-radius: ${getSize(6)};
+  border: ${getSize(2)} solid rgba(144, 144, 144, 0.2);
   justify-content: center;
   align-items: center;
   ${space}
