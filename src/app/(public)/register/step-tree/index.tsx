@@ -1,11 +1,23 @@
 import { Button, Header, Loading } from "@/components";
 import { SelectForm } from "@/components/CardSelect";
-import { GET_ALL_SKILLS, UPDATE_USER_SKILLS } from "@/services";
+import { Dictionary } from "@/constants";
+import { GET_SKILLS, UPDATE_USER } from "@/services";
 import { UserContext } from "@/storages";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useState } from "react";
 import { Container, RegisterText, StyledLink, Text } from "../styles";
+
+type Skills = Array<{
+  id: string;
+  text: string;
+  type: string;
+}>;
+
+type CustomText = {
+  title: string;
+  button: string;
+};
 
 export default function StepTree() {
   const router = useRouter();
@@ -13,94 +25,120 @@ export default function StepTree() {
   const { user } = useContext(UserContext);
 
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
-  const [skills, setSkills] = useState<
-    Array<{ id: string; text: string; imageUrl: string; type: string }>
-  >([]);
+  const [customText, setCustomText] = useState<CustomText>({
+    title: "",
+    button: "",
+  });
+  const [skills, setSkills] = useState<Skills[]>([]);
 
-  const [getAllSkills, { loading: getSkillsLoading }] = useLazyQuery(
-    GET_ALL_SKILLS,
-    {
-      errorPolicy: "all",
-    },
-  );
+  useEffect(() => {
+    getSkills();
+  }, []);
 
-  const [updateUserSkills, { loading: updateUserSkillsLoading }] = useMutation(
-    UPDATE_USER_SKILLS,
-    {
-      errorPolicy: "all",
-    },
-  );
+  useEffect(() => {
+    const userType = user?.userType ?? "MENTEE";
+    const { BUTTON, TITLE } = Dictionary.SCREEN.REGISTER_STEP_TREE;
+    setCustomText({ title: TITLE[userType], button: BUTTON[userType] });
+  }, [user]);
+
+  const [gqlGetSkills, gqlGetSkillsProps] = useLazyQuery(GET_SKILLS, {
+    errorPolicy: "all",
+  });
+
+  const [gqlUpdateUser, gqlUpdateUserProps] = useMutation(UPDATE_USER, {
+    errorPolicy: "all",
+  });
 
   async function getSkills() {
     if (!user) {
-      router.replace("/onboarding");
+      router.replace("(public)/onboarding");
       return;
     }
 
-    const { data } = await getAllSkills({
+    const { data } = await gqlGetSkills({
       context: { headers: { Authorization: `Bearer ${user.token}` } },
     });
 
-    setSkills(data.listSkills);
+    const formattedSkills = data.skills.map(
+      ({ id, name, type }: Record<string, string>) => ({
+        id,
+        text: name,
+        type,
+      }),
+    );
+
+    setSkills(formattedSkills);
   }
 
   async function updateUser() {
     if (!user) {
-      router.replace("/register/step-one");
+      router.replace("/(public)/register/step-one");
       return;
     }
 
-    const softSkills = skills
-      .filter(
-        (item) => selectedOption.includes(item.id) && item.type === "SOFT",
-      )
-      .map((item) => item.id);
+    const variables = {
+      id: user.id,
+      skills: selectedOption,
+      ...(user.userType === "MENTEE"
+        ? {
+            mentee: {
+              id: "",
+              linkedin: "value",
+              goal: "value",
+              interestArea: "value",
+              degree: "HIGH_SCHOOL",
+            },
+          }
+        : {}),
+    };
 
-    const hardSkills = skills
-      .filter(
-        (item) => selectedOption.includes(item.id) && item.type === "HARD",
-      )
-      .map((item) => item.id);
-
-    await updateUserSkills({
-      variables: { id: user.id, softSkills, hardSkills },
+    await gqlUpdateUser({
+      variables,
       context: { headers: { Authorization: `Bearer ${user.token}` } },
     });
   }
 
   const handleButtonPress = async () => {
     await updateUser();
-    router.replace("/look-for-mentor");
-  };
 
-  useEffect(() => {
-    getSkills();
-  }, []);
+    if (user?.userType === "MENTEE") {
+      router.replace("/(private)/home");
+      return;
+    }
+
+    router.replace("/(public)/register/step-four");
+  };
 
   return (
     <>
-      <Loading active={getSkillsLoading || updateUserSkillsLoading} />
+      <Loading
+        active={gqlGetSkillsProps.loading || gqlUpdateUserProps.loading}
+      />
       <Container>
-        <Header backButton />
-        <Text mt={30} ml={30}>
-          Selecione suas skills
-        </Text>
-        <SelectForm
-          mt={20}
-          ml={30}
-          data={skills}
-          onSelected={setSelectedOption}
-        />
-        <Button
-          mt={10}
-          value="Finalizar"
-          onPress={handleButtonPress}
-          disabled={selectedOption.length === 0}
-        />
-        <RegisterText mt={20} mb={20}>
-          Para saber mais ou duvidas acesse o portal{" "}
-          <StyledLink href="/register">mentorei.app</StyledLink>.
-        </RegisterText>
+        {!gqlGetSkillsProps.loading && (
+          <>
+            <Header backButton />
+            <Text mt={30} ml={30}>
+              {customText.title}
+            </Text>
+            <SelectForm
+              mt={10}
+              ml={30}
+              data={skills}
+              onSelected={setSelectedOption}
+            />
+            <Button
+              mt={10}
+              value={customText.button}
+              onPress={handleButtonPress}
+              disabled={selectedOption.length === 0}
+            />
+            <RegisterText mt={20} mb={20}>
+              Para saber mais ou duvidas acesse o portal{" "}
+              <StyledLink href="/register">mentorei.app</StyledLink>.
+            </RegisterText>
+          </>
+        )}
       </Container>
     </>
   );

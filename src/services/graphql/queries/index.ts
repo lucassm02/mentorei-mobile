@@ -1,3 +1,4 @@
-export * from "./get-all-skills";
-export * from "./get-all-mentors";
+export * from "./get-skills";
+export * from "./get-mentors";
 export * from "./get-mentor-by-id";
+export * from "./get-user-by-id";

@@ -27,7 +27,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN } from "@/services";
 
 export default function Login() {
-  const { setUserData } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const router = useRouter();
 
@@ -63,7 +63,7 @@ export default function Login() {
 
     await setItem(Collection.USER, { id, name, token });
 
-    setUserData({ id, name, token });
+    setUser({ id, name, token });
 
     router.replace("/(private)/home");
   });
@@ -78,10 +78,10 @@ export default function Login() {
           <BannerText position="absolute" top={150}>
             Bem vindo!
           </BannerText>
-          <Title mt={getSize(20)} ml={getSize(20)}>
+          <Title mt={getSize(20)} ml={getSize(30)}>
             Bem-vindo de volta
           </Title>
-          <Text mt={getSize(10)} ml={getSize(20)}>
+          <Text mt={getSize(10)} ml={getSize(30)}>
             Acesse sua conta com seu e-mail cadastrado
           </Text>
 
@@ -126,8 +126,8 @@ export default function Login() {
           </OptionsContainer>
           <Button mt={getSize(30)} value="Entrar" onPress={handleButtonPress} />
           <RegisterText mt={getSize(20)} mb={getSize(40)}>
-            Não possui cadastro? clique em{" "}
-            <StyledLink href="/register">Criar conta</StyledLink>.
+            Não possui cadastro? Clique em
+            <StyledLink href="/register"> Criar conta</StyledLink>
           </RegisterText>
         </ScrollView>
       </Container>

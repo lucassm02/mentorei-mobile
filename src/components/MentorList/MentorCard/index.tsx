@@ -13,16 +13,22 @@ import { Rating } from "react-native-ratings";
 
 import { Avatar } from "@/components/Avatar";
 
-type Props = { name: string; rating: number; photoUrl: string };
+type Props = {
+  name: string;
+  rating: number;
+  photoUrl: string;
+  onPress?: () => void;
+};
 
 export function MentorCard({
   name,
   rating,
   photoUrl,
+  onPress,
   ...props
 }: SpaceProps & Props) {
   return (
-    <Container {...props}>
+    <Container onPress={onPress} {...props}>
       <IconContainer>
         <Avatar photoUrl={photoUrl} />
       </IconContainer>

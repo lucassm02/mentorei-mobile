@@ -30,13 +30,20 @@ export default function Layout() {
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="look-for-mentor-v2"
         options={{
           title: "Perfil",
           tabBarIcon: ({ color }) => (
             <Ionicons name="person-sharp" size={30} color={color} />
           ),
+        }}
+      /> */}
+
+      <Tabs.Screen
+        name="mentor"
+        options={{
+          href: null,
         }}
       />
     </Tabs>

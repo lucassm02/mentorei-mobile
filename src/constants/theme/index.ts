@@ -13,9 +13,13 @@ export default {
     },
   },
   FONT_SIZE: {
+    VVSM: getSize(10),
+    VSM: getSize(12),
     SM: getSize(14),
     MD: getSize(16),
     LG: getSize(18),
     XL: getSize(24),
+    XXL: getSize(26),
+    XXXL: getSize(28),
   },
 };

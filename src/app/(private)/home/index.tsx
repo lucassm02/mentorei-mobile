@@ -1,7 +1,7 @@
 import { Header, SchedulingCard } from "@/components";
-import { UserContext } from "@/storages";
+import { Collection, UserContext, getItem } from "@/storages";
 import { getAvatarImageUrl, getSize } from "@/utils";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Block,
   Container,
@@ -20,6 +20,25 @@ import { FlatList } from "react-native";
 
 export default function Home() {
   const { user } = useContext(UserContext);
+
+  const [meetings, setMeetings] = useState<
+    Array<{
+      mentor: { name: string; rating: number };
+      date: string;
+      hour: string;
+      link: string;
+    }>
+  >([]);
+
+  useEffect(() => {
+    (async () => {
+      const meetingsFromStorage: any[] | undefined = await getItem(
+        Collection.MEETING,
+      );
+
+      setMeetings(meetingsFromStorage ?? []);
+    })();
+  }, []);
 
   return (
     <>
@@ -50,19 +69,23 @@ export default function Home() {
         </ListTitle>
         <ListContainer>
           <FlatList
-            data={[{}, {}, {}, {}]}
+            data={meetings}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={() => <Block height={getSize(10)} />}
             ListFooterComponent={() => <Block />}
             ItemSeparatorComponent={() => <Separator />}
-            renderItem={() => (
+            renderItem={({ item }) => (
               <SchedulingCard
-                meet={{ date: "20/09/2023", hour: "19:30", link: "" }}
+                meet={{
+                  date: item.date,
+                  hour: item.hour,
+                  link: item.link,
+                }}
                 mentor={{
-                  name: "Eric Silva",
-                  photoUrl: getAvatarImageUrl("Erik Silva"),
-                  rating: 5,
+                  name: item.mentor.name,
+                  photoUrl: getAvatarImageUrl(item.mentor.name),
+                  rating: item.mentor.rating,
                 }}
                 skill="JavaScript"
               />

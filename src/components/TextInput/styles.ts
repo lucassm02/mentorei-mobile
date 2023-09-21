@@ -1,7 +1,7 @@
-import styled from "styled-components/native";
-import { type SpaceProps, space } from "styled-system";
 import { getSize } from "@/utils";
-import MaskInput from "react-native-mask-input";
+import { TextInput } from "react-native";
+import styled from "styled-components/native";
+import { space, type SpaceProps } from "styled-system";
 
 export const Container = styled.View<SpaceProps>`
   width: ${getSize(300)};
@@ -9,7 +9,7 @@ export const Container = styled.View<SpaceProps>`
   ${space}
 `;
 
-export const Input = styled(MaskInput)`
+export const Input = styled(TextInput)`
   width: 100%;
   padding: ${getSize(17)} ${getSize(20)};
   background-color: #f1f1f1;

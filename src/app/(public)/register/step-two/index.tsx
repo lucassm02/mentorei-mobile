@@ -2,7 +2,7 @@ import { Button, Header, RadioButton, RadioButtonForm } from "@/components";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import {
-  CardGradient,
+  Card,
   CardText,
   Container,
   Image,
@@ -17,13 +17,14 @@ import { UserContext } from "@/storages";
 import { Collection, setItem } from "@/storages/async-storage";
 import mentorPng from "@assets/images/screen/register/mentor.png";
 import studentPng from "@assets/images/screen/register/student.png";
+import { getSize } from "@/utils";
 
 const UserType = { MENTEE: "MENTEE", MENTOR: "MENTOR" };
 
 export default function StepTree() {
   const router = useRouter();
 
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
     null,
@@ -31,31 +32,36 @@ export default function StepTree() {
 
   const handleButtonPress = async () => {
     if (!user) {
-      router.replace("/onboarding");
+      router.replace("/(public)/onboarding");
+      return;
     }
 
-    const payload = { ...user, userType: selectedOption };
+    const payload = {
+      ...user,
+      userType: selectedOption as keyof typeof UserType,
+    };
 
+    setUser(payload);
     await setItem(Collection.USER, payload);
 
-    router.push("/register/step-tree");
+    router.push("(public)/register/step-tree");
   };
 
   return (
     <Container>
       <Header />
-      <Title mt={30} ml={30}>
-        Olá
+      <Title mt={getSize(30)} ml={getSize(30)}>
+        Olá {user?.name},
       </Title>
-      <Text mt={10} ml={30}>
-        Escolha abaixo sua forma de acesso
+      <Text mt={getSize(10)} ml={getSize(30)}>
+        Chegou a hora de iniciar sua jornada, deseja aprender ou ensinar?
       </Text>
       <RadioButtonForm onSelected={setSelectedOption}>
         <RadioButtonCardContainer mt={30}>
-          <CardGradient border colors={["#EAF1F6", "#EAF1F6"]}>
+          <Card colors={["#EAF1F6", "#EAF1F6"]}>
             <RadioButtonCard
               onPress={() => {
-                setSelectedOption(1);
+                setSelectedOption(UserType.MENTEE);
               }}
             >
               <RadioContainer>
@@ -66,15 +72,15 @@ export default function StepTree() {
                 />
               </RadioContainer>
               <Image source={studentPng} />
-              <CardText mb={30} color="#0F9FFA">
+              <CardText mb={getSize(30)} color="#0F9FFA">
                 Aluno
               </CardText>
             </RadioButtonCard>
-          </CardGradient>
-          <CardGradient colors={["#4DB9FD", "#427CFA"]}>
+          </Card>
+          <Card colors={["#4DB9FD", "#427CFA"]}>
             <RadioButtonCard
               onPress={() => {
-                setSelectedOption(2);
+                setSelectedOption(UserType.MENTOR);
               }}
             >
               <RadioContainer>
@@ -85,13 +91,13 @@ export default function StepTree() {
                 />
               </RadioContainer>
               <Image source={mentorPng} />
-              <CardText mb={30}>Mentor</CardText>
+              <CardText mb={getSize(30)}>Mentor</CardText>
             </RadioButtonCard>
-          </CardGradient>
+          </Card>
         </RadioButtonCardContainer>
       </RadioButtonForm>
       <Button
-        mt={20}
+        mt={getSize(20)}
         value="Continuar"
         onPress={handleButtonPress}
         disabled={selectedOption === null}

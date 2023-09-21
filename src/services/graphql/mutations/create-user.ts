@@ -7,8 +7,14 @@ export const CREATE_USER = gql`
     $cpf: String!
     $password: String!
   ) {
-    createUser(name: $name, email: $email, cpf: $cpf, password: $password) {
+    user: createUser(
+      name: $name
+      email: $email
+      cpf: $cpf
+      password: $password
+    ) {
       id
+      name
       token
     }
   }

@@ -16,6 +16,6 @@ export const Checkbox = styled(ExpoCheckbox)`
 export const Text = styled.Text`
   color: #746e6e;
   margin-left: ${getSize(6)};
-  font-size: ${getSize(12)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.VSM};
 `;

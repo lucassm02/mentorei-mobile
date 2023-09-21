@@ -20,7 +20,15 @@ export function SkillList({
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <SkillCard text={item.name} imageUrl={item.imageUrl} />
+          <SkillCard
+            text={item.name}
+            highlight={props.highlight?.includes(item.id)}
+            imageUrl={item.imageUrl}
+            onPress={() => {
+              if (!item.onPress) return;
+              item.onPress(item.id);
+            }}
+          />
         )}
         ItemSeparatorComponent={() => <Separator />}
       />

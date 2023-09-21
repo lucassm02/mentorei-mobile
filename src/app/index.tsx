@@ -1,12 +1,13 @@
-import { Collection, getItem } from "@/storages";
+import { Collection, getItem, setItem } from "@/storages";
 import { UserContext, type User } from "@/storages/context";
 import { Redirect, SplashScreen } from "expo-router";
+import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 
 import { useContext, useEffect, useState } from "react";
 import Onboarding from "./(public)/onboarding";
 
 export default function Root() {
-  const { user, setUserData } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [storageLoadingHasFinished, setStorageLoadingHasFinished] =
     useState(false);
@@ -18,19 +19,25 @@ export default function Root() {
   }, [storageLoadingHasFinished]);
 
   useEffect(() => {
+    if (__DEV__) {
+      loadDevMessages();
+      loadErrorMessages();
+    }
+
     getStorage();
   }, []);
 
   async function getStorage() {
+    // setItem(Collection.USER, null);
     const store: User | undefined = await getItem(Collection.USER);
 
     if (!store) {
-      setUserData(null);
+      setUser(null);
       setStorageLoadingHasFinished(true);
       return;
     }
 
-    setUserData(store);
+    setUser(store);
     setStorageLoadingHasFinished(true);
   }
 

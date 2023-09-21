@@ -33,6 +33,7 @@ export const Separator = styled.View`
   height: 0.4px;
   background-color: rgba(200, 200, 200, 0.3);
 `;
+
 export const Block = styled.View<LayoutProps>`
   height: ${getSize(20)};
   ${layout}

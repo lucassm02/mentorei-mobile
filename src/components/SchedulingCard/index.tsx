@@ -10,6 +10,7 @@ import {
   Text,
 } from "./styles";
 import { type Props } from "./types";
+import * as Linking from "expo-linking";
 
 import { Button } from "./Button";
 
@@ -39,7 +40,11 @@ export function SchedulingCard(props: Props & SpaceProps) {
         </StackContainer>
       </LeftSideContainer>
       <RightSideContainer>
-        <Button />
+        <Button
+          onPress={() => {
+            Linking.openURL(props.meet.link);
+          }}
+        />
       </RightSideContainer>
     </Container>
   );

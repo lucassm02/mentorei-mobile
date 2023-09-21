@@ -1,3 +1,4 @@
+export * from "./create-mentor-availability";
 export * from "./create-user";
-export * from "./update-user-skills";
 export * from "./login";
+export * from "./update-user";

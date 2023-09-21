@@ -21,10 +21,10 @@ export default function Onboarding() {
       <Banner source={bannerPng} m="0 auto" mt={getSize(25)} />
       <Logo source={logoPng} mt={getSize(20)} ml={getSize(30)} />
       <Title ml={getSize(30)} mt={getSize(15)} mr={getSize(30)}>
-        Bem-vindo ao Mentorei.
+        Bem-vindo ao Mentorei!
       </Title>
       <Text ml={getSize(30)} mt={getSize(10)} mr={getSize(30)}>
-        O aplicativo que veio para governar o ensino digital!
+        O aplicativo que veio para governar o ensino digital
       </Text>
       <Button mt={getSize(30)} value="Criar Conta" onPress={goToRegister} />
       <Button

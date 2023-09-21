@@ -12,9 +12,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.lucassm02.mentorei"
@@ -34,9 +32,7 @@
       "typedRoutes": false,
       "tsconfigPaths": true
     },
-    "plugins": [
-      "expo-router"
-    ],
+    "plugins": ["expo-router"],
     "extra": {
       "router": {
         "origin": false

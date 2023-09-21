@@ -1,6 +1,11 @@
 import { getSize } from "@/utils";
 import styled from "styled-components/native";
-import { type SpaceProps, space } from "styled-system";
+import {
+  type SpaceProps,
+  space,
+  type LayoutProps,
+  layout,
+} from "styled-system";
 import { FlatList } from "react-native";
 import { type CardProps } from "./types";
 
@@ -13,8 +18,8 @@ export const Container = styled.View<SpaceProps>`
 
 export const Title = styled.Text<SpaceProps>`
   color: #464646;
-  font-family: HammersmithOne;
-  font-size: ${getSize(16)};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD};
   ${space}
 `;
 
@@ -27,6 +32,7 @@ export const Separator = styled.View`
   background-color: rgba(0, 0, 0, 0.1);
 `;
 
-export const Footer = styled.View`
-  padding: ${getSize(10)};
+export const Block = styled.View<LayoutProps>`
+  height: ${getSize(20)};
+  ${layout}
 `;

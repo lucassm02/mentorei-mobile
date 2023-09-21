@@ -8,6 +8,7 @@ export * from "./Input";
 export * from "./Loading";
 export * from "./MentorList";
 export * from "./RadioButton";
+export * from "./SchedulingCard";
 export * from "./SearchInput";
 export * from "./SkillList";
-export * from "./SchedulingCard";
+export * from "./TextInput";

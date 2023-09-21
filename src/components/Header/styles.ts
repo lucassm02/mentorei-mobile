@@ -22,14 +22,6 @@ export const ContentContainer = styled.View`
 
 export const ButtonContainer = styled.View<SpaceProps>``;
 
-export const Title = styled.Text`
-  color: #fff;
-  font-size: ${getSize(25)};
-  font-family: HammersmithOne;
-  margin: 0 auto;
-  ${space};
-`;
-
 export const Image = styled.Image<SpaceProps & FlexProps>`
   ${space}
   ${flex}

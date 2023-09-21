@@ -4,4 +4,5 @@ const makeCollectionName = (name: string) => `${APP_ID}${name}`;
 
 export const Collection = {
   USER: makeCollectionName("user"),
+  MEETING: makeCollectionName("meeting"),
 };

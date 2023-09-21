@@ -1,17 +1,15 @@
+import { getSize } from "@/utils";
+import { Link } from "expo-router";
 import { Image as DefaultImage } from "react-native";
 import styled from "styled-components/native";
 import {
-  space,
-  position,
   layout,
+  position,
+  space,
   type LayoutProps,
   type PositionProps,
   type SpaceProps,
 } from "styled-system";
-import { getSize } from "@/utils";
-import { Link } from "expo-router";
-
-import { LinearGradient } from "expo-linear-gradient";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -29,8 +27,8 @@ export const Image = styled(DefaultImage)<
 
 export const BannerText = styled.Text<SpaceProps & PositionProps>`
   color: #fff;
-  font-size: ${getSize(20)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.LG};
   flex-direction: column;
   justify-content: center;
   align-self: center;
@@ -42,8 +40,9 @@ export const Title = styled.Text<SpaceProps>`
   width: 80%;
   color: #746e6e;
   text-align: left;
-  font-family: HammersmithOne;
-  font-size: ${getSize(26)};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.XXL};
+
   ${space}
 `;
 
@@ -51,33 +50,14 @@ export const Text = styled.Text<SpaceProps>`
   width: 80%;
   color: #746e6e;
   text-align: left;
-  font-family: HammersmithOne;
-  font-size: ${getSize(16)};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.REGULAR};
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD};
   ${space}
-`;
-
-export const ButtonGradient = styled(LinearGradient).attrs({
-  colors: ["#FFAC38", "#FFD700"],
-})`
-  width: ${getSize(120)};
-  height: ${getSize(50)};
-  justify-content: center;
-  align-items: center;
-  border-radius: ${getSize(30)};
 `;
 
 export const ButtonContainer = styled.View<SpaceProps>`
   align-items: flex-end;
   ${space}
-`;
-
-export const Button = styled.Button`
-  width: ${getSize(120)};
-  height: ${getSize(50)};
-  text-align: center;
-  font-size: ${getSize(25)};
-  font-family: HammersmithOne;
-  text-transform: capitalize;
 `;
 
 export const OptionsContainer = styled.View<SpaceProps>`
@@ -91,22 +71,22 @@ export const OptionsContainer = styled.View<SpaceProps>`
 export const ForgotPasswordText = styled.Text`
   color: #4db9fd;
   text-align: right;
-  font-size: ${getSize(12)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.VSM};
 `;
 
 export const RegisterText = styled.Text<SpaceProps>`
   color: #746e6e;
-  font-size: ${getSize(14)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM};
   align-self: center;
   ${space}
 `;
 
 export const StyledLink = styled(Link)<SpaceProps>`
   color: #4db9fd;
-  font-size: ${getSize(14)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM};
   align-self: center;
   ${space}
 `;

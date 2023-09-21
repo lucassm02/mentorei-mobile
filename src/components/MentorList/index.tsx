@@ -1,17 +1,20 @@
 import { type SpaceProps } from "styled-system";
-import { Container, Title, List, Separator, Footer } from "./styles";
+import { Block, Container, List, Separator, Title } from "./styles";
 
-import { MentorCard } from "./MentorCard";
 import { getAvatarImageUrl, getSize } from "@/utils";
+import { MentorCard } from "./MentorCard";
 import { type CardProps } from "./types";
 
-type Props = { data: CardProps[] };
+type Props = { title: string; data: CardProps[] };
 
-export function MentorList({ data, ...props }: SpaceProps & Props) {
+export function MentorList({ data, title, ...props }: SpaceProps & Props) {
   return (
     <Container {...props}>
-      <Title mb={getSize(10)}>Lista de mentores encontrados:</Title>
+      <Title mb={getSize(10)}>{title}</Title>
       <List
+        ListHeaderComponent={() => <Block height={getSize(5)} />}
+        ListFooterComponent={() => <Block />}
+        ItemSeparatorComponent={() => <Separator />}
         data={data}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
@@ -21,10 +24,12 @@ export function MentorList({ data, ...props }: SpaceProps & Props) {
             name={item.name}
             photoUrl={getAvatarImageUrl(item.name)}
             rating={item.rating}
+            onPress={() => {
+              if (!item.onPress) return;
+              item.onPress(item.id);
+            }}
           />
         )}
-        ItemSeparatorComponent={() => <Separator />}
-        ListFooterComponent={() => <Footer />}
       />
     </Container>
   );

@@ -24,8 +24,8 @@ export const Logo = styled.Image<SpaceProps & SizeProps>`
 
 export const Title = styled.Text<SpaceProps>`
   color: #746e6e;
-  font-size: ${getSize(26)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.XXL};
   flex-direction: column;
   justify-content: center;
   ${space}
@@ -33,8 +33,8 @@ export const Title = styled.Text<SpaceProps>`
 
 export const Text = styled.Text<SpaceProps>`
   color: #746e6e;
-  font-size: ${getSize(16)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.REGULAR};
+  font-size: ${({ theme }) => theme.FONT_SIZE.LG};
   flex-direction: column;
   justify-content: center;
   ${space}

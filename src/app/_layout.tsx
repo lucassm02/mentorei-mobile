@@ -31,8 +31,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontLoadingHasFinished, error] = useFonts({
-    SpaceMono: require("@assets/fonts/SpaceMono-Regular.ttf"),
-    HammersmithOne: require("@assets/fonts/HammersmithOne-Regular.ttf"),
     NunitoSans_200ExtraLight,
     NunitoSans_200ExtraLight_Italic,
     NunitoSans_300Light,

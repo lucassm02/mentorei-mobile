@@ -12,5 +12,5 @@ type Callback =
 
 export interface FormProps {
   onSelected?: Callback;
-  data: CardProps[];
+  data: Array<Array<Pick<CardProps, "text" | "id">>>;
 }

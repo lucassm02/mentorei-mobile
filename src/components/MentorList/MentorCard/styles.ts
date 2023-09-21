@@ -3,7 +3,7 @@ import { Rating as RatingWithoutStyle } from "react-native-ratings";
 import styled from "styled-components/native";
 import { space, type SpaceProps } from "styled-system";
 
-export const Container = styled.View<SpaceProps>`
+export const Container = styled.TouchableOpacity<SpaceProps>`
   width: ${getSize(315)};
   flex-direction: row;
   align-items: center;

@@ -24,8 +24,8 @@ export const CardContainer = styled(LinearGradient).attrs({
 export const Text = styled.Text`
   color: #fff;
   text-align: center;
-  font-family: HammersmithOne;
-  font-size: ${getSize(20)};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.LG};
 `;
 
 export const List = styled(FlatList<CardProps>).attrs({

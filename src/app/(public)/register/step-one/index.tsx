@@ -17,7 +17,7 @@ import { UserContext } from "@/storages";
 export default function StepOne() {
   const router = useRouter();
 
-  const { setUserData } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const {
     control,
@@ -49,13 +49,13 @@ export default function StepOne() {
       return;
     }
 
-    const { id, token }: Record<string, string> = data.createUser;
+    const { id, name, token }: Record<string, string> = data.user;
 
-    await setItem(Collection.USER, { id, token });
+    await setItem(Collection.USER, { id, name, token });
 
-    setUserData({ id, name: "", token });
+    setUser({ id, name, token });
 
-    router.replace("/register/step-two");
+    router.replace("/(public)/register/step-two");
   });
 
   return (
@@ -63,7 +63,7 @@ export default function StepOne() {
       <Loading active={loading} />
       <Container>
         <Header backButton />
-        <Text mt={30} ml={30}>
+        <Text mt={getSize(30)} ml={getSize(30)}>
           Para criar sua conta, preencha as informações abaixo
         </Text>
         <ScrollView>
@@ -93,8 +93,6 @@ export default function StepOne() {
                 onChangeText={(_, unmaskedValue) => {
                   field.onChange(unmaskedValue);
                 }}
-                onSubmitEditing={handleButtonPress}
-                returnKeyType="send"
                 errorMessage={formState.errors.cpf?.message}
                 mask={Masks.BRL_CPF}
                 value={field.value}
@@ -156,7 +154,11 @@ export default function StepOne() {
           />
         </ScrollView>
         <ButtonContainer position="relative" bottom={4}>
-          <Button mt={50} value="Criar conta" onPress={handleButtonPress} />
+          <Button
+            mt={getSize(50)}
+            value="Criar conta"
+            onPress={handleButtonPress}
+          />
         </ButtonContainer>
       </Container>
     </>

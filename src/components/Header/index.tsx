@@ -7,15 +7,16 @@ const arrowBackPng = require("@assets/images/component/header/arrow-back.png");
 
 interface Props {
   backButton?: boolean;
+  clearBackHistory?: boolean;
 }
 
-export function Header({ backButton, ...props }: Props) {
+export function Header({ backButton, clearBackHistory, ...props }: Props) {
   const navigation = useNavigation();
 
   return (
     <Container>
       <ContentContainer {...props}>
-        {backButton && (
+        {backButton && navigation.canGoBack() && (
           <ButtonContainer>
             <TouchableOpacity
               onPress={() => {
