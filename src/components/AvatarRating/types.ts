@@ -1,5 +1,6 @@
 export type Props = {
-  url: string;
+  photoUrl: string;
   name: string;
   rating: number;
+  userType?: "MENTEE" | "MENTOR";
 };

@@ -17,8 +17,8 @@ export const InfoContainer = styled.View<SpaceProps>`
 export const NameText = styled.Text<SpaceProps>`
   width: ${getSize(240)};
   color: #464646;
-  font-family: HammersmithOne;
-  font-size: ${getSize(24)};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.XL};
   ${space}
 `;
 
@@ -31,15 +31,14 @@ export const Rating = styled(RatingWithoutStyle)``;
 
 export const RatingText = styled.Text<SpaceProps>`
   color: #464646;
-  font-family: HammersmithOne;
-  font-size: ${getSize(16)};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.REGULAR};
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD};
   ${space}
 `;
 
 export const IconContainer = styled.View<SpaceProps>`
+  height: ${getSize(90)};
   justify-content: center;
   align-items: center;
   ${space}
 `;
-
-export const Icon = styled.Image``;

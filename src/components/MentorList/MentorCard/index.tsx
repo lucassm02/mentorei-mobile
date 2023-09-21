@@ -1,26 +1,30 @@
+import { getSize } from "@/utils";
 import { type SpaceProps } from "styled-system";
 import {
   Container,
-  NameText,
-  RatingText,
   IconContainer,
-  Icon,
   InfoContainer,
+  NameText,
   RatingContainer,
+  RatingText,
 } from "./styles";
-import { getSize } from "@/utils";
 
 import { Rating } from "react-native-ratings";
 
-import userIconPng from "@assets/images/shared/user-icon.png";
+import { Avatar } from "@/components/Avatar";
 
-type Props = { name: string; rating: number };
+type Props = { name: string; rating: number; photoUrl: string };
 
-export function MentorCard({ name, rating, ...props }: SpaceProps & Props) {
+export function MentorCard({
+  name,
+  rating,
+  photoUrl,
+  ...props
+}: SpaceProps & Props) {
   return (
     <Container {...props}>
       <IconContainer>
-        <Icon source={userIconPng} />
+        <Avatar photoUrl={photoUrl} />
       </IconContainer>
       <InfoContainer>
         <NameText ml={getSize(20)} mt={getSize(20)}>

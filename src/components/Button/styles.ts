@@ -42,7 +42,7 @@ export const Text = styled.Text<GenericProps>`
     `}
 
   text-align: center;
-  font-size: ${getSize(18)};
-  font-family: HammersmithOne;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.NUNITO_SANS.REGULAR};
+  font-size: ${({ theme }) => theme.FONT_SIZE.LG};
   text-transform: capitalize;
 `;

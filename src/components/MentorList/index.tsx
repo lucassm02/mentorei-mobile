@@ -2,7 +2,7 @@ import { type SpaceProps } from "styled-system";
 import { Container, Title, List, Separator, Footer } from "./styles";
 
 import { MentorCard } from "./MentorCard";
-import { getSize } from "@/utils";
+import { getAvatarImageUrl, getSize } from "@/utils";
 import { type CardProps } from "./types";
 
 type Props = { data: CardProps[] };
@@ -16,7 +16,12 @@ export function MentorList({ data, ...props }: SpaceProps & Props) {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <MentorCard name={item.name} rating={item.rating} mt={getSize(10)} />
+          <MentorCard
+            mt={getSize(10)}
+            name={item.name}
+            photoUrl={getAvatarImageUrl(item.name)}
+            rating={item.rating}
+          />
         )}
         ItemSeparatorComponent={() => <Separator />}
         ListFooterComponent={() => <Footer />}
