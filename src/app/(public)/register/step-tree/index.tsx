@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Button, Header, Loading } from "@/components";
 import { SelectForm } from "@/components/CardSelect";
 import { Dictionary } from "@/constants";
@@ -7,6 +8,7 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useState } from "react";
 import { Container, RegisterText, StyledLink, Text } from "../styles";
+import { getSize } from "@/utils";
 
 type Skills = Array<{
   id: string;
@@ -81,14 +83,14 @@ export default function StepTree() {
       skills: selectedOption,
       ...(user.userType === "MENTEE"
         ? {
-            mentee: {
-              id: "",
-              linkedin: "value",
-              goal: "value",
-              interestArea: "value",
-              degree: "HIGH_SCHOOL",
-            },
-          }
+          mentee: {
+            id: "",
+            linkedin: "value",
+            goal: "value",
+            interestArea: "value",
+            degree: "HIGH_SCHOOL",
+          },
+        }
         : {}),
     };
 
@@ -118,22 +120,27 @@ export default function StepTree() {
         {!gqlGetSkillsProps.loading && (
           <>
             <Header backButton />
-            <Text mt={30} ml={30}>
+            <Text mt={getSize(30)} ml={getSize(30)}>
               {customText.title}
             </Text>
             <SelectForm
-              mt={10}
-              ml={30}
+              mt={getSize(10)}
+              ml={getSize(30)}
               data={skills}
               onSelected={setSelectedOption}
             />
             <Button
-              mt={10}
+              mt={getSize(10)}
               value={customText.button}
               onPress={handleButtonPress}
               disabled={selectedOption.length === 0}
             />
-            <RegisterText mt={20} mb={20}>
+            <RegisterText
+              ml={getSize(30)}
+              mr={getSize(30)}
+              mt={getSize(20)}
+              mb={getSize(20)}
+            >
               Para saber mais ou duvidas acesse o portal{" "}
               <StyledLink href="/register">mentorei.app</StyledLink>.
             </RegisterText>

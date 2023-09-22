@@ -52,6 +52,7 @@ export default function MentorDetail() {
   const [meetTime, setMeetTime] = useState<string | null>(null);
   const [meetDate, setMeetDate] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [storeMeeting, setStoreMeeting] = useState<boolean>(false);
 
   const [gqlGetMentorById, gqlGetMentorByIdProps] = useLazyQuery(
     GET_MENTOR_BY_ID,
@@ -63,6 +64,12 @@ export default function MentorDetail() {
   useEffect(() => {
     getMentorInfo();
   }, []);
+
+  useEffect(() => {
+    if (storeMeeting) {
+      handleMeetingSubmit();
+    }
+  }, [storeMeeting]);
 
   async function getMentorInfo() {
     if (!user) {
@@ -144,9 +151,12 @@ export default function MentorDetail() {
 
     await setItem(Collection.SHARED, newData);
 
+    setStoreMeeting(false);
     setLoading(false);
 
-    route.replace("/(private)/home");
+    setTimeout(() => {
+      route.replace("/(private)/home");
+    }, 300);
   }
 
   function handleConfirm(type: "date" | "datetime" | "time", date: Date) {
@@ -200,9 +210,9 @@ export default function MentorDetail() {
               locale="pt_BR"
               isVisible={showDatePicker && Platform.OS === "ios"}
               onCancel={handleCancel}
-              onConfirm={async (date) => {
+              onConfirm={(date) => {
                 handleConfirm("datetime", date);
-                await handleMeetingSubmit();
+                setStoreMeeting(true);
               }}
             />
 
@@ -228,9 +238,9 @@ export default function MentorDetail() {
                 meetTime === null
               }
               onCancel={handleCancel}
-              onConfirm={async (date) => {
+              onConfirm={(date) => {
                 handleConfirm("time", date);
-                await handleMeetingSubmit();
+                setStoreMeeting(true);
               }}
             />
 
