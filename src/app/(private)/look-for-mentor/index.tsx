@@ -2,6 +2,7 @@ import {
   Header,
   Loading,
   MentorList,
+  NotFoundContainer,
   SearchInput,
   SkillList,
 } from "@/components";
@@ -146,12 +147,28 @@ export default function LookForMentor() {
             await getMentors({ name: value });
           }}
         />
-        {showSkills && (
+        {showSkills && skills.length > 0 && (
           <SkillList title="Habilidades" data={skills} mt={getSize(40)} />
         )}
 
-        {showMentors && (
+        {showSkills && skills.length === 0 && (
+          <NotFoundContainer>
+            <Text ml={getSize(30)} mt={getSize(10)} mr={getSize(30)}>
+              Nenhuma habilidade foi encontrada
+            </Text>
+          </NotFoundContainer>
+        )}
+
+        {showMentors && mentors.length > 0 && (
           <MentorList title="Mentores" data={mentors} mt={getSize(40)} />
+        )}
+
+        {showMentors && mentors.length === 0 && (
+          <NotFoundContainer>
+            <Text ml={getSize(30)} mt={getSize(10)} mr={getSize(30)}>
+              Nenhum mentor encontrado
+            </Text>
+          </NotFoundContainer>
         )}
       </Container>
     </>

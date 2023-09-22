@@ -5,7 +5,13 @@ import { useLazyQuery } from "@apollo/client";
 import { useContext, useEffect, useState } from "react";
 import { Container, Description, RatingContainer } from "./styles";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { Collection, UserContext, getItem, setItem } from "@/storages";
+import {
+  Collection,
+  UserContext,
+  getItem,
+  setItem,
+  type SharedCollection,
+} from "@/storages";
 import { Platform } from "react-native";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -24,6 +30,18 @@ type Mentor = {
   evaluations: Array<{ rating: number }>;
 };
 
+const meetLinks = [
+  "https://meet.google.com/kbe-kmvz-jpd",
+  "https://meet.google.com/kva-towb-chy",
+  "https://meet.google.com/tbt-nxgx-rfh",
+  "https://meet.google.com/hzn-ncew-zpn",
+  "https://meet.google.com/snw-ymrf-nfx",
+  "https://meet.google.com/nyg-yara-jtb",
+  "https://meet.google.com/wnp-bpjb-khx",
+  "https://meet.google.com/cjd-fqan-tuh",
+  "https://meet.google.com/idv-nmkz-zka",
+];
+
 export default function MentorDetail() {
   const { id } = useLocalSearchParams();
   const route = useRouter();
@@ -33,6 +51,7 @@ export default function MentorDetail() {
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [meetTime, setMeetTime] = useState<string | null>(null);
   const [meetDate, setMeetDate] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [gqlGetMentorById, gqlGetMentorByIdProps] = useLazyQuery(
     GET_MENTOR_BY_ID,
@@ -44,10 +63,6 @@ export default function MentorDetail() {
   useEffect(() => {
     getMentorInfo();
   }, []);
-
-  useEffect(() => {
-    console.log({ meetDate, meetTime });
-  }, [meetDate, meetTime]);
 
   async function getMentorInfo() {
     if (!user) {
@@ -103,28 +118,39 @@ export default function MentorDetail() {
     setMentor(mentor);
   }
 
-  async function createMeeting() {
+  async function handleMeetingSubmit() {
+    if (!user) return;
+
+    setLoading(true);
+
     const meeting = {
       date: meetDate,
       hour: meetTime,
-      link: "https://meet.google.com/kbe-kmvz-jpd",
+      link: meetLinks[Math.floor(Math.random() * 8)],
       mentor: {
         name: mentor?.user.name,
         rating: mentor?.rating,
       },
     };
 
-    const meetings: unknown[] | undefined = await getItem(Collection.MEETING);
+    const shared = await getItem<SharedCollection>(Collection.SHARED);
 
-    const newMeetings = meetings ? [...meetings, meeting] : [meeting];
+    const { meetings } = shared?.[user.id] ?? { meetings: [] };
 
-    await setItem(Collection.MEETING, newMeetings);
+    const newData = {
+      ...shared?.[user.id],
+      [user.id]: { meetings: [...meetings, meeting] },
+    };
+
+    await setItem(Collection.SHARED, newData);
+
+    setLoading(false);
 
     route.replace("/(private)/home");
   }
 
   function handleConfirm(type: "date" | "datetime" | "time", date: Date) {
-    const dateToString = format(date, "dd/MM/yyyy");
+    const dateToString = format(date, "dd/MM");
     const timeToString = format(date, "kk:mm");
 
     if (type.includes("date")) {
@@ -134,12 +160,10 @@ export default function MentorDetail() {
     if (type.includes("time")) {
       setMeetTime(timeToString);
       setShowDatePicker(false);
-      createMeeting();
     }
 
     if (type === "datetime") {
       setShowDatePicker(false);
-      createMeeting();
     }
   }
 
@@ -149,7 +173,7 @@ export default function MentorDetail() {
 
   return (
     <>
-      <Loading active={gqlGetMentorByIdProps.loading} />
+      <Loading active={gqlGetMentorByIdProps.loading || loading} />
       <Header />
       <Container>
         {mentor && (
@@ -176,8 +200,9 @@ export default function MentorDetail() {
               locale="pt_BR"
               isVisible={showDatePicker && Platform.OS === "ios"}
               onCancel={handleCancel}
-              onConfirm={(date) => {
+              onConfirm={async (date) => {
                 handleConfirm("datetime", date);
+                await handleMeetingSubmit();
               }}
             />
 
@@ -203,8 +228,9 @@ export default function MentorDetail() {
                 meetTime === null
               }
               onCancel={handleCancel}
-              onConfirm={(date) => {
+              onConfirm={async (date) => {
                 handleConfirm("time", date);
+                await handleMeetingSubmit();
               }}
             />
 

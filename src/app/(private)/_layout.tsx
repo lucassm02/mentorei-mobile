@@ -30,15 +30,15 @@ export default function Layout() {
           ),
         }}
       />
-      {/* <Tabs.Screen
-        name="look-for-mentor-v2"
+      <Tabs.Screen
+        name="profile"
         options={{
           title: "Perfil",
           tabBarIcon: ({ color }) => (
             <Ionicons name="person-sharp" size={30} color={color} />
           ),
         }}
-      /> */}
+      />
 
       <Tabs.Screen
         name="mentor"

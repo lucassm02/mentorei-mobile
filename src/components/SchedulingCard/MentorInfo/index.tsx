@@ -26,7 +26,9 @@ export function MentorInfo({
         <Avatar photoUrl={photoUrl} height={getSize(40)} />
       </AvatarContainer>
       <InfoContainer>
-        <Name>{name}</Name>
+        <Name ellipsizeMode="tail" numberOfLines={1}>
+          {name}
+        </Name>
         <RatingContainer>
           <RatingLabel>Rating:</RatingLabel>
           <Rating

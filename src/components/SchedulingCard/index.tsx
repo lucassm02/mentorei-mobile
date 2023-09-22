@@ -26,9 +26,9 @@ export function SchedulingCard(props: Props & SpaceProps) {
           rating={props.mentor.rating}
         />
         <StackContainer ml={getSize(20)}>
-          <Label>
+          {/* <Label>
             Skill: <Text>{props.skill}</Text>
-          </Label>
+          </Label> */}
         </StackContainer>
         <StackContainer ml={getSize(20)} mb={getSize(10)}>
           <Label>

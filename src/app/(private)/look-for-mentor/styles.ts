@@ -24,4 +24,10 @@ export const Text = styled.Text<SpaceProps>`
   ${space}
 `;
 
+export const NotFoundContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 // export const ClearFilter = styled.TouchableOpacity

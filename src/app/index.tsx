@@ -1,7 +1,7 @@
-import { Collection, getItem, setItem } from "@/storages";
+import { Collection, getItem } from "@/storages";
 import { UserContext, type User } from "@/storages/context";
+import { loadDevMessages, loadErrorMessages } from "@apollo/client/dev";
 import { Redirect, SplashScreen } from "expo-router";
-import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 
 import { useContext, useEffect, useState } from "react";
 import Onboarding from "./(public)/onboarding";

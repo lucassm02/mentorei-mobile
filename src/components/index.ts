@@ -7,6 +7,7 @@ export * from "./Header";
 export * from "./Input";
 export * from "./Loading";
 export * from "./MentorList";
+export * from "./NotFoundContainer";
 export * from "./RadioButton";
 export * from "./SchedulingCard";
 export * from "./SearchInput";

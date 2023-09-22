@@ -1,5 +1,15 @@
-import { Header, SchedulingCard } from "@/components";
-import { Collection, UserContext, getItem } from "@/storages";
+import {
+  Header,
+  Loading,
+  NotFoundContainer,
+  SchedulingCard,
+} from "@/components";
+import {
+  Collection,
+  UserContext,
+  getItem,
+  type SharedCollection,
+} from "@/storages";
 import { getAvatarImageUrl, getSize } from "@/utils";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -18,31 +28,43 @@ import logoPng from "@assets/images/shared/white-logo.png";
 
 import { FlatList } from "react-native";
 
+type Meeting = {
+  mentor: {
+    name: string;
+    rating: number;
+  };
+  date: string;
+  hour: string;
+  link: string;
+};
+
 export default function Home() {
   const { user } = useContext(UserContext);
 
-  const [meetings, setMeetings] = useState<
-    Array<{
-      mentor: { name: string; rating: number };
-      date: string;
-      hour: string;
-      link: string;
-    }>
-  >([]);
+  const [loading, setLoading] = useState(false);
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
 
   useEffect(() => {
     (async () => {
-      const meetingsFromStorage: any[] | undefined = await getItem(
-        Collection.MEETING,
-      );
+      if (!user) {
+        setMeetings([]);
+        return;
+      }
 
-      setMeetings(meetingsFromStorage ?? []);
+      setLoading(true);
+      const shared = await getItem<SharedCollection>(Collection.SHARED);
+
+      const { meetings } = shared?.[user.id] ?? { meetings: [] };
+
+      setMeetings(meetings);
+      setLoading(false);
     })();
   }, []);
 
   return (
     <>
       <Header />
+      <Loading active={loading} />
       <Container>
         <Image
           source={bannerPng}
@@ -64,34 +86,48 @@ export default function Home() {
           Aqui você pode encontrar um resumo do seu aprendizado, reunimos para
           você suas mentorias agendadas
         </Text>
-        <ListTitle ml={getSize(30)} mt={getSize(20)} mb={getSize(10)}>
-          Agendamentos:
-        </ListTitle>
-        <ListContainer>
-          <FlatList
-            data={meetings}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={() => <Block height={getSize(10)} />}
-            ListFooterComponent={() => <Block />}
-            ItemSeparatorComponent={() => <Separator />}
-            renderItem={({ item }) => (
-              <SchedulingCard
-                meet={{
-                  date: item.date,
-                  hour: item.hour,
-                  link: item.link,
-                }}
-                mentor={{
-                  name: item.mentor.name,
-                  photoUrl: getAvatarImageUrl(item.mentor.name),
-                  rating: item.mentor.rating,
-                }}
-                skill="JavaScript"
-              />
-            )}
-          />
-        </ListContainer>
+
+        {meetings.length > 0 && (
+          <ListTitle ml={getSize(30)} mt={getSize(20)} mb={getSize(10)}>
+            Agendamentos
+          </ListTitle>
+        )}
+
+        {meetings.length === 0 && (
+          <NotFoundContainer>
+            <Text ml={getSize(30)} mr={getSize(30)}>
+              Nenhum agendamento encontrado
+            </Text>
+          </NotFoundContainer>
+        )}
+
+        {meetings.length > 0 && (
+          <ListContainer>
+            <FlatList
+              data={meetings}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={() => <Block height={getSize(10)} />}
+              ListFooterComponent={() => <Block />}
+              ItemSeparatorComponent={() => <Separator />}
+              renderItem={({ item }) => (
+                <SchedulingCard
+                  meet={{
+                    date: item.date,
+                    hour: item.hour,
+                    link: item.link,
+                  }}
+                  mentor={{
+                    name: item.mentor.name,
+                    photoUrl: getAvatarImageUrl(item.mentor.name),
+                    rating: 3,
+                  }}
+                  skill="JavaScript"
+                />
+              )}
+            />
+          </ListContainer>
+        )}
       </Container>
     </>
   );
